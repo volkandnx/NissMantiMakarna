@@ -45,15 +45,31 @@ function switchTab(cat, btn) {
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      entry.target.style.opacity = '1';
-      entry.target.style.transform = 'translateY(0)';
+      entry.target.classList.add('in-view');
+      // Remove animation classes once finished, restoring base transitions
+      setTimeout(() => {
+        entry.target.classList.remove('fade-up', 'in-view');
+        entry.target.style.transitionDelay = '';
+      }, 1200);
+      observer.unobserve(entry.target);
     }
   });
-}, { threshold: 0.08 });
+}, { threshold: 0.1 });
 
-document.querySelectorAll('.menu-card, .info-card').forEach(card => {
-  card.style.opacity = '0';
-  card.style.transform = 'translateY(22px)';
-  card.style.transition = 'opacity .5s ease, transform .5s ease';
-  observer.observe(card);
+document.querySelectorAll('.menu-card, .info-card, .section-header, .hero-content h1, .hero-content p, .footer-col').forEach((el, index) => {
+  el.classList.add('fade-up');
+  
+  if (el.classList.contains('menu-card')) {
+    const delay = (index % 3) * 100;
+    el.style.transitionDelay = `${delay}ms`;
+  } else if (el.classList.contains('info-card')) {
+    const delay = index * 150;
+    el.style.transitionDelay = `${delay}ms`;
+  } else {
+    // minor delay for other elements
+    const delay = (index % 2) * 100;
+    el.style.transitionDelay = `${delay}ms`;
+  }
+  
+  observer.observe(el);
 });
