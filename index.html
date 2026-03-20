@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Niss Mantı &amp; Makarna | Geleneksel Lezzetler</title>
+  <meta name="description" content="Niss Mantı &amp; Makarna — El yapımı mantı ve taze makarna lezzetleriyle unutulmaz bir yemek deneyimi yaşayın." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">Niss <span>Mantı &amp; Makarna</span></a>
+      <ul class="nav-links">
+        <li><a href="#hero">Ana Sayfa</a></li>
+        <li><a href="#menu">Menü</a></li>
+        <li><a href="#contact">İletişim</a></li>
+      </ul>
+      <button class="burger" id="burgerBtn" aria-label="Menüyü Aç">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="mobile-menu" id="mobileMenu">
+      <li><a href="#hero" onclick="closeMobile()">Ana Sayfa</a></li>
+      <li><a href="#menu" onclick="closeMobile()">Menü</a></li>
+      <li><a href="#contact" onclick="closeMobile()">İletişim</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">El Yapımı &bull; Taze &bull; Geleneksel</p>
+      <h1>Niss Mantı <br /><em>&amp; Makarna</em></h1>
+      <p class="hero-sub">Her tabakta saklanan ev lezzetiyle dolu bir dünya.</p>
+      <div class="hero-info">
+        <div class="info-card">
+          <div class="info-icon">📍</div>
+          <div>
+            <span class="info-label">Adres</span>
+            <a href="https://maps.google.com" target="_blank" class="info-value">Konumu Görüntüle</a>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">📞</div>
+          <div>
+            <span class="info-label">İrtibat</span>
+            <a href="tel:+905001234567" class="info-value" id="phoneNumber">Yükleniyor…</a>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-icon">🕐</div>
+          <div>
+            <span class="info-label">Çalışma Saatleri</span>
+            <span class="info-value">Her Gün: 10:00 – 22:00</span>
+          </div>
+        </div>
+      </div>
+      <a href="#menu" class="btn-primary">Menüyü Keşfet</a>
+    </div>
+    <div class="scroll-indicator">
+      <span></span>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section id="menu">
+    <div class="section-header">
+      <p class="section-eyebrow">Lezzetlerimiz</p>
+      <h2>Menümüz</h2>
+      <p class="section-sub">El açması hamur, özenle seçilmiş iç malzeme ve sevgiyle hazırlanan soslar.</p>
+    </div>
+
+    <!-- Category Tabs -->
+    <div class="menu-tabs" id="menuTabs">
+      <button class="tab-btn active" data-cat="corbalar" onclick="switchTab('corbalar', this)">🍲 Çorbalar</button>
+      <button class="tab-btn" data-cat="ana" onclick="switchTab('ana', this)">🥟 Ana Yemekler</button>
+      <button class="tab-btn" data-cat="makarna" onclick="switchTab('makarna', this)">🍝 Makarna</button>
+      <button class="tab-btn" data-cat="icecekler" onclick="switchTab('icecekler', this)">🥤 İçecekler</button>
+    </div>
+
+    <!-- Çorbalar -->
+    <div class="menu-grid" id="cat-corbalar">
+      <div class="menu-card">
+        <div class="card-body">
+          <h3>Domates Çorbası</h3>
+          <p>Tomato Soup</p>
+        </div>
+        <span class="price">220 ₺</span>
+      </div>
+      <div class="menu-card">
+        <div class="card-body">
+          <h3>Mercimek Çorbası</h3>
+          <p>Lentil Soup</p>
+        </div>
+        <span class="price">220 ₺</span>
+      </div>
+    </div>
+
+    <!-- Ana Yemekler -->
+    <div class="menu-grid hidden" id="cat-ana">
+      <div class="menu-card featured">
+        <div class="card-body">
+          <h3>Haşlanmış Kıymalı Mantı</h3>
+          <p>Boiled Turkish Ravioli with Minced Meat</p>
+        </div>
+        <span class="price">590 ₺</span>
+      </div>
+      <div class="menu-card featured">
+        <div class="card-body">
+          <h3>Kızarmış Kıymalı Mantı</h3>
+          <p>Fried Turkish Ravioli with Minced Meat</p>
+        </div>
+        <span class="price">590 ₺</span>
+      </div>
+      <div class="menu-card featured">
+        <div class="card-body">
+          <h3>Karışık Kıymalı Mantı</h3>
+          <p>Mixed (Fried-Boiled) Turkish Ravioli with Minced Meat</p>
+        </div>
+        <span class="price">600 ₺</span>
+      </div>
+      <div class="menu-card featured">
+        <div class="card-body">
+          <h3>Kıymalı Hingel</h3>
+          <p>Hingel Ravioli Stuffed With Minced Meat</p>
+        </div>
+        <span class="price">610 ₺</span>
+      </div>
+      <div class="menu-card featured">
+        <div class="card-body">
+          <h3>Kızarmış Kıymalı Hingel</h3>
+          <p>Fried Hingel Ravioli Stuffed With Minced Meat</p>
+        </div>
+        <span class="price">610 ₺</span>
+      </div>
+      <div class="menu-card featured">
+        <div class="card-body">
+          <h3>Rus Mantısı</h3>
+          <p>Russian Ravioli Stuffed With Minced Meat</p>
+        </div>
+        <span class="price">610 ₺</span>
+      </div>
+      <div class="menu-card">
+        <div class="card-body">
+          <h3>Patatesli Mantı</h3>
+          <p>Ravioli Stuffed with Potatoes</p>
+        </div>
+        <span class="price">575 ₺</span>
+      </div>
+      <div class="menu-card">
+        <div class="card-body">
+          <h3>Kızarmış Patatesli Mantı</h3>
+          <p>Fried Ravioli Stuffed with Potatoes</p>
+        </div>
+        <span class="price">575 ₺</span>
+      </div>
+      <div class="menu-card">
+        <div class="card-body">
+          <h3>Yeşil Mercimekli Mantı</h3>
+          <p>Ravioli Stuffed with Green Lentils</p>
+        </div>
+        <span class="price">575 ₺</span>
+      </div>
+      <div class="menu-card">
+        <div class="card-body">
+          <h3>Kızarmış Yeşil Mercimekli Mantı</h3>
+          <p>Fried Ravioli Stuffed with Green Lentils</p>
+        </div>
+        <span class="price">575 ₺</span>
+      </div>
+      <div class="menu-card">
+        <div class="card-body">
+          <h3>Ispanaklı Mantı</h3>
+          <p>Ravioli Stuffed with Spinach</p>
+        </div>
+        <span class="price">575 ₺</span>
+      </div>
+      <div class="menu-card">
+        <div class="card-body">
+          <h3>Kızarmış Ispanaklı Mantı</h3>
+          <p>Fried Ravioli Stuffed with Spinach</p>
+        </div>
+        <span class="price">575 ₺</span>
+      </div>
+      <div class="menu-card">
+        <div class="card-body">
+          <h3>Haşlanmış İçli Köfte</h3>
+          <p>Boiled Stuffed Meat Balls</p>
+        </div>
+        <span class="price">540 ₺</span>
+      </div>
+      <div class="menu-card">
+        <div class="card-body">
+          <h3>Kızarmış İçli Köfte</h3>
+          <p>Fried Stuffed Meat Balls</p>
+        </div>
+        <span class="price">240 ₺</span>
+      </div>
+      <div class="menu-card">
+        <div class="card-body">
+          <h3>Kabak Mücveri</h3>
+          <p>Zucchini Fritters</p>
+        </div>
+        <span class="price">300 ₺</span>
+      </div>
+      <div class="menu-card">
+        <div class="card-body">
+          <h3>Zeytinyağlı Yaprak Sarma</h3>
+          <p>Stuffed Vine Leaves with Olive Oil</p>
+        </div>
+        <span class="price">300 ₺</span>
+      </div>
+      <div class="menu-card">
+        <div class="card-body">
+          <h3>Patates Kızartması</h3>
+          <p>Potato Fries</p>
+        </div>
+        <span class="price">220 ₺</span>
+      </div>
+      <div class="menu-card extra">
+        <div class="card-body">
+          <h3>Ekstra Sos</h3>
+          <p>Extra Sauce</p>
+        </div>
+        <span class="price">40 ₺</span>
+      </div>
+      <div class="menu-card extra">
+        <div class="card-body">
+          <h3>Ekstra Yoğurt</h3>
+          <p>Extra Yoghurt</p>
+        </div>
+        <span class="price">40 ₺</span>
+      </div>
+    </div>
+
+    <!-- Makarna -->
+    <div class="menu-grid hidden" id="cat-makarna">
+      <div class="menu-card featured">
+        <div class="card-body">
+          <h3>El Açması Kremalı Fettuccine</h3>
+          <p>Creamy Fettuccine (Fresh)</p>
+        </div>
+        <span class="price">520 ₺</span>
+      </div>
+      <div class="menu-card featured">
+        <div class="card-body">
+          <h3>El Açması Salçalı Makarna</h3>
+          <p>Fettuccine with Tomato Paste (Fresh)</p>
+        </div>
+        <span class="price">520 ₺</span>
+      </div>
+      <div class="menu-card featured">
+        <div class="card-body">
+          <h3>El Açması Kremalı Mantarlı Fettuccine</h3>
+          <p>Creamy Fettuccine With Mushrooms (Fresh)</p>
+        </div>
+        <span class="price">540 ₺</span>
+      </div>
+      <div class="menu-card featured">
+        <div class="card-body">
+          <h3>El Açması Köri Soslu Fettuccine</h3>
+          <p>Fettuccine with Curry Sauce (Fresh)</p>
+        </div>
+        <span class="price">530 ₺</span>
+      </div>
+      <div class="menu-card featured">
+        <div class="card-body">
+          <h3>El Açması Pesto Soslu Fettuccine</h3>
+          <p>Fettuccine With Pesto Sauce — Kremalı (Fresh)</p>
+        </div>
+        <span class="price">540 ₺</span>
+      </div>
+      <div class="menu-card featured">
+        <div class="card-body">
+          <h3>El Açması Bolonez Soslu Fettuccine</h3>
+          <p>Fettuccine with Bolognese Sauce (Fresh)</p>
+        </div>
+        <span class="price">575 ₺</span>
+      </div>
+      <div class="menu-card premium">
+        <div class="card-body">
+          <h3>El Açması Kremalı Karidesli Fettuccine</h3>
+          <p>Creamy Fettuccine With Shrimp (Fresh)</p>
+        </div>
+        <span class="price">725 ₺</span>
+      </div>
+      <div class="menu-card premium">
+        <div class="card-body">
+          <h3>El Açması Kremalı Biftekli Fettuccine</h3>
+          <p>Creamy Fettuccine With Steak (Fresh)</p>
+        </div>
+        <span class="price">725 ₺</span>
+      </div>
+      <div class="menu-card featured">
+        <div class="card-body">
+          <h3>El Açması Domates Soslu Köfteli Makarna</h3>
+          <p>Fettuccine with Tomato Sauce and Meatball (Fresh)</p>
+        </div>
+        <span class="price">620 ₺</span>
+      </div>
+      <div class="menu-card featured">
+        <div class="card-body">
+          <h3>El Açması 3 Peynirli Makarna</h3>
+          <p>Fettuccine with 3-Cheese — Mozzarella, Cheddar, Kaşar (Fresh)</p>
+        </div>
+        <span class="price">590 ₺</span>
+      </div>
+    </div>
+
+    <!-- İçecekler -->
+    <div class="menu-grid hidden" id="cat-icecekler">
+      <div class="menu-card drink">
+        <div class="card-body"><h3>Coca Cola</h3></div>
+        <span class="price">95 ₺</span>
+      </div>
+      <div class="menu-card drink">
+        <div class="card-body"><h3>Coca Cola Zero</h3></div>
+        <span class="price">95 ₺</span>
+      </div>
+      <div class="menu-card drink">
+        <div class="card-body"><h3>Fanta</h3></div>
+        <span class="price">95 ₺</span>
+      </div>
+      <div class="menu-card drink">
+        <div class="card-body"><h3>Sprite</h3></div>
+        <span class="price">95 ₺</span>
+      </div>
+      <div class="menu-card drink">
+        <div class="card-body"><h3>Fusetea Limon</h3></div>
+        <span class="price">95 ₺</span>
+      </div>
+      <div class="menu-card drink">
+        <div class="card-body"><h3>Fusetea Şeftali</h3></div>
+        <span class="price">95 ₺</span>
+      </div>
+      <div class="menu-card drink">
+        <div class="card-body"><h3>Fusetea Mango</h3></div>
+        <span class="price">95 ₺</span>
+      </div>
+      <div class="menu-card drink">
+        <div class="card-body"><h3>Soda</h3></div>
+        <span class="price">50 ₺</span>
+      </div>
+      <div class="menu-card drink">
+        <div class="card-body"><h3>Ayran</h3></div>
+        <span class="price">65 ₺</span>
+      </div>
+      <div class="menu-card drink">
+        <div class="card-body"><h3>Cappy Şeftali</h3><p>Peach Juice</p></div>
+        <span class="price">90 ₺</span>
+      </div>
+      <div class="menu-card drink">
+        <div class="card-body"><h3>Su</h3><p>Water</p></div>
+        <span class="price">45 ₺</span>
+      </div>
+      <div class="menu-card drink">
+        <div class="card-body"><h3>Efes Pilsen 33 cl</h3></div>
+        <span class="price">195 ₺</span>
+      </div>
+      <div class="menu-card drink sold-out">
+        <div class="card-body"><h3>Becks 33 cl</h3><p class="sold-out-tag">Tükendi</p></div>
+        <span class="price">225 ₺</span>
+      </div>
+      <div class="menu-card drink">
+        <div class="card-body"><h3>Kırmızı Şarap</h3><p>Red Wine</p></div>
+        <span class="price">400 ₺</span>
+      </div>
+      <div class="menu-card drink">
+        <div class="card-body"><h3>Beyaz Şarap</h3><p>White Wine</p></div>
+        <span class="price">400 ₺</span>
+      </div>
+      <div class="menu-card drink">
+        <div class="card-body"><h3>Roze Şarap</h3><p>Rosé Wine</p></div>
+        <span class="price">400 ₺</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT / FOOTER -->
+  <footer id="contact">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h2>Niss Mantı &amp; Makarna</h2>
+        <p>El yapımı lezzetlerle dolu bir sofra deneyimi.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Bulunduğumuz Yer</h4>
+          <a href="https://maps.google.com" target="_blank">Konumu Görüntüle →</a>
+        </div>
+        <div class="footer-col">
+          <h4>İrtibat</h4>
+          <a href="tel:+905001234567" id="footerPhone">Yükleniyor…</a>
+        </div>
+        <div class="footer-col">
+          <h4>Çalışma Saatleri</h4>
+          <p>Her Gün</p>
+          <p>10:00 – 22:00</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Niss Mantı &amp; Makarna. Tüm Hakları Saklıdır.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
