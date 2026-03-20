@@ -387,8 +387,9 @@ a.info-value:hover { color: var(--accent-lt); }
 /* Menu Card */
 .menu-card {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
   gap: 16px;
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -420,6 +421,27 @@ a.info-value:hover { color: var(--accent-lt); }
 .menu-card.drink::before    { background: #4a8cc9; }
 .menu-card.extra::before    { background: var(--text-muted); }
 
+.card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.menu-item-img {
+  width: 100%;
+  margin-bottom: 16px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.menu-item-img img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.menu-card:hover .menu-item-img img {
+  transform: scale(1.05);
+}
+
 .card-body h3 {
   font-family: var(--font-serif);
   font-size: 1.02rem;
@@ -432,11 +454,14 @@ a.info-value:hover { color: var(--accent-lt); }
   font-size: .82rem;
   color: var(--text-muted);
   line-height: 1.4;
+  margin-bottom: 8px;
 }
 
 .price {
+  align-self: flex-end;
+  margin-top: auto;
   flex-shrink: 0;
-  font-size: 1rem;
+  font-size: 1.1rem;
   font-weight: 700;
   color: var(--accent-lt);
   white-space: nowrap;
@@ -542,6 +567,5 @@ a.info-value:hover { color: var(--accent-lt); }
 
 @media (max-width: 480px) {
   .tab-btn { font-size: .8rem; padding: 9px 18px; }
-  .menu-card { flex-direction: column; align-items: flex-start; gap: 10px; }
   .price { font-size: 1.05rem; }
 }
