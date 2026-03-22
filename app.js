@@ -24,10 +24,12 @@ const mobileMenu  = document.getElementById('mobileMenu');
 
 burgerBtn.addEventListener('click', () => {
   mobileMenu.classList.toggle('open');
+  burgerBtn.classList.toggle('open');
 });
 
 function closeMobile() {
   mobileMenu.classList.remove('open');
+  burgerBtn.classList.remove('open');
 }
 
 // ── Menu tab switching ──
@@ -39,6 +41,8 @@ function switchTab(cat, btn) {
   // show selected
   document.getElementById('cat-' + cat).classList.remove('hidden');
   btn.classList.add('active');
+  // Trigger scale calculation for new images
+  setTimeout(() => window.dispatchEvent(new Event('scroll')), 50);
 }
 
 // ── Intersection Observer: animate cards on scroll ──
@@ -48,7 +52,7 @@ const observer = new IntersectionObserver((entries) => {
       entry.target.classList.add('in-view');
       // Remove animation classes once finished, restoring base transitions
       setTimeout(() => {
-        entry.target.classList.remove('fade-up', 'in-view');
+        entry.target.classList.remove('fade-up', 'fade-right', 'fade-left', 'zoom-in', 'in-view');
         entry.target.style.transitionDelay = '';
       }, 1200);
       observer.unobserve(entry.target);
@@ -56,20 +60,64 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1 });
 
-document.querySelectorAll('.menu-card, .info-card, .section-header, .hero-content h1, .hero-content p, .footer-col').forEach((el, index) => {
+document.querySelectorAll('.menu-card').forEach((el, index) => {
   el.classList.add('fade-up');
-  
-  if (el.classList.contains('menu-card')) {
-    const delay = (index % 3) * 100;
-    el.style.transitionDelay = `${delay}ms`;
-  } else if (el.classList.contains('info-card')) {
-    const delay = index * 150;
-    el.style.transitionDelay = `${delay}ms`;
-  } else {
-    // minor delay for other elements
-    const delay = (index % 2) * 100;
-    el.style.transitionDelay = `${delay}ms`;
-  }
-  
+  el.style.transitionDelay = `${(index % 3) * 100}ms`;
   observer.observe(el);
 });
+
+document.querySelectorAll('.info-card').forEach((el, index) => {
+  el.classList.add('zoom-in');
+  el.style.transitionDelay = `${index * 150}ms`;
+  observer.observe(el);
+});
+
+document.querySelectorAll('.section-header, .hero-content h1, .hero-content p').forEach((el, index) => {
+  el.classList.add('fade-up');
+  el.style.transitionDelay = `${(index % 2) * 100}ms`;
+  observer.observe(el);
+});
+
+document.querySelectorAll('.footer-col').forEach((el, index) => {
+  el.classList.add('fade-left');
+  el.style.transitionDelay = `${index * 150}ms`;
+  observer.observe(el);
+});
+
+document.querySelectorAll('.hero-eyebrow').forEach((el) => {
+  el.classList.add('fade-right');
+  observer.observe(el);
+});
+
+// ── Image Dynamic Scale on Scroll ──
+let isTickingScale = false;
+window.addEventListener('scroll', () => {
+  if (!isTickingScale) {
+    window.requestAnimationFrame(() => {
+      const windowHeight = window.innerHeight;
+      const menuImages = document.querySelectorAll('.menu-grid:not(.hidden) .menu-item-img img');
+      const viewportCenter = windowHeight / 2;
+      
+      menuImages.forEach(img => {
+        const rect = img.getBoundingClientRect();
+        if (rect.width === 0) return;
+        
+        const imgCenter = rect.top + rect.height / 2;
+        const distance = Math.abs(viewportCenter - imgCenter);
+        const maxDistance = windowHeight / 1.5;
+        
+        let ratio = 1 - (distance / maxDistance);
+        if (ratio < 0) ratio = 0;
+        
+        // Base scale 1.0 at edges, grows to 1.15 at center
+        const scale = 1.0 + (ratio * 0.15);
+        img.style.transform = `scale(${scale})`;
+      });
+      isTickingScale = false;
+    });
+    isTickingScale = true;
+  }
+}, { passive: true });
+
+// Initial dispatch after a short delay to calculate correctly
+setTimeout(() => window.dispatchEvent(new Event('scroll')), 100);

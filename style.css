@@ -112,17 +112,28 @@ a { text-decoration: none; color: inherit; }
 .burger {
   display: none;
   flex-direction: column;
-  gap: 5px;
+  gap: 6px;
   background: none;
   border: none;
   cursor: pointer;
   padding: 4px;
+  z-index: 1000;
 }
 .burger span {
-  width: 24px; height: 2px;
+  width: 28px; height: 2px;
   background: var(--text-primary);
   border-radius: 2px;
-  transition: .3s;
+  transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+  transform-origin: center;
+}
+.burger.open span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.burger.open span:nth-child(2) {
+  opacity: 0;
+}
+.burger.open span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
 }
 
 /* mobile menu */
@@ -257,10 +268,18 @@ a { text-decoration: none; color: inherit; }
   transform: translateY(-3px);
 }
 
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
 .info-icon {
   font-size: 1.5rem;
   line-height: 1;
+  animation: float 3s ease-in-out infinite;
 }
+.info-card:nth-child(2) .info-icon { animation-delay: 0.5s; }
+.info-card:nth-child(3) .info-icon { animation-delay: 1s; }
 
 .info-label {
   display: block;
@@ -277,7 +296,11 @@ a { text-decoration: none; color: inherit; }
 }
 a.info-value:hover { color: var(--accent-lt); }
 
-/* CTA */
+@keyframes pulseGlow {
+  0% { box-shadow: 0 8px 32px rgba(201,137,58,.4); }
+  50% { box-shadow: 0 8px 32px rgba(201,137,58,.8), 0 0 20px rgba(201,137,58,.3); }
+  100% { box-shadow: 0 8px 32px rgba(201,137,58,.4); }
+}
 .btn-primary {
   display: inline-block;
   padding: 18px 48px;
@@ -289,11 +312,13 @@ a.info-value:hover { color: var(--accent-lt); }
   border-radius: 99px;
   box-shadow: 0 8px 32px rgba(201,137,58,.4);
   transition: transform .3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow .3s ease, background .3s ease;
+  animation: pulseGlow 3s infinite alternate;
 }
 .btn-primary:hover {
   transform: translateY(-4px);
   box-shadow: 0 16px 40px rgba(201,137,58,.6), inset 0 0 12px rgba(255,255,255,0.2);
   background: linear-gradient(135deg, var(--accent-lt), var(--accent));
+  animation: none;
 }
 
 /* scroll indicator */
@@ -385,18 +410,18 @@ a.info-value:hover { color: var(--accent-lt); }
 }
 
 /* Menu grid */
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.97) translateY(15px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
 .menu-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 18px;
-  animation: fadeIn .4s ease both;
+  animation: fadeInScale 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) both;
 }
 .menu-grid.hidden { display: none; }
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
 
 /* Menu Card */
 .menu-card {
@@ -467,11 +492,15 @@ a.info-value:hover { color: var(--accent-lt); }
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  /* Smoother and slightly faster transition for scroll sync */
+  transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
   display: block;
+  /* Make sure transform origin is center */
+  transform-origin: center center;
 }
 .menu-card:hover .menu-item-img img {
-  transform: scale(1.08);
+  /* Override JS inline style on hover explicitly */
+  transform: scale(1.22) !important;
 }
 .menu-card:hover .menu-item-img::after {
   opacity: 1;
@@ -627,13 +656,17 @@ a.info-value:hover { color: var(--accent-lt); }
 /* ═══════════════════════
    ANIMATIONS
 ═══════════════════════ */
-.fade-up {
+.fade-up, .fade-right, .fade-left, .zoom-in {
   opacity: 0 !important;
-  transform: translateY(40px) !important;
   transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1) !important;
   will-change: opacity, transform;
 }
-.fade-up.in-view {
+.fade-up { transform: translateY(40px) !important; }
+.fade-right { transform: translateX(-40px) !important; }
+.fade-left { transform: translateX(40px) !important; }
+.zoom-in { transform: scale(0.9) !important; }
+
+.fade-up.in-view, .fade-right.in-view, .fade-left.in-view, .zoom-in.in-view {
   opacity: 1 !important;
-  transform: translateY(0) !important;
+  transform: translate(0) scale(1) !important;
 }
